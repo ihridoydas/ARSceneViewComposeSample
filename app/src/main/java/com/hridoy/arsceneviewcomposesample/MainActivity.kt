@@ -43,23 +43,23 @@ fun ARScreen() {
     val nodes = remember { mutableStateListOf<ArNode>() }
 
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        ARScene(
-            modifier = Modifier.fillMaxSize(),
-            nodes = nodes,
-            planeRenderer = true,
-            onCreate = { arSceneView ->
-                // Apply your configuration
-            },
-            onSessionCreate = { session ->
-                // Configure the ARCore session
-            },
-            onFrame = { arFrame ->
-                // Retrieve ARCore frame update
-            },
-            onTap = { hitResult ->
-                // User tapped in the AR view
-            }
-        )
-    }
+//    Box(modifier = Modifier.fillMaxSize()) {
+//        ARScene(
+//            modifier = Modifier.fillMaxSize(),
+//            nodes = nodes,
+//            planeRenderer = true,
+//            onCreate = { arSceneView ->
+//                // Apply your configuration
+//            },
+//            onSessionCreate = { session ->
+//                // Configure the ARCore session
+//            },
+//            onFrame = { arFrame ->
+//                // Retrieve ARCore frame update
+//            },
+//            onTap = { hitResult ->
+//                // User tapped in the AR view
+//            }
+//        )
+//    }
 }
