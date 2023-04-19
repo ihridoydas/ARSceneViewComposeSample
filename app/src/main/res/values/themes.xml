@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.ARSceneViewComposeSample" parent="Theme.AppCompat.NoActionBar"/>
-
-    　<!--  京セラ TORQUE端末で発生したエラー解決ため　-->
-    <style name="AppTheme.FullScreen.NoActionBar" parent="Theme.ARSceneViewComposeSample">
-        <item name="android:statusBarColor">#000000</item>
-        <item name="android:windowBackground">#000000</item>
-    </style>
-
-    <style name="Theme.ARSceneViewComposeSample.NoActionBar">
-        <item name="android:navigationBarColor">#fdfdfd</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowActionBarOverlay">@null</item>
+    <style name="Theme.ARSceneViewComposeSample" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/sceneview</item>
+        <item name="colorAccent">@color/sceneview</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="Theme.SceneViewSample.Toolbar" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="logo">@drawable/logo</item>
     </style>
 </resources>
