@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.hridoy.arsceneviewcomposesample"
-        minSdk 24
+        minSdk 28
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -69,9 +69,11 @@ dependencies {
 
 
     //Ar Core
-    implementation 'com.google.ar:core:1.33.0'
+    implementation 'com.google.ar:core:1.36.0'
     //SceneView
     // 3D and ARCore
     implementation 'io.github.sceneview:arsceneview:0.9.8'
+    //For Model viewer
+    implementation "io.github.sceneview:sceneview:1.0.7"
 
 }
