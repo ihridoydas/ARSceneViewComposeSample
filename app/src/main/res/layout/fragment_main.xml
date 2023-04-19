@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:background="@drawable/info_background"
-    tools:context="com.hridoy.arsceneviewcomposesample.ModelViewerActivity">
+    tools:context="com.hridoy.arsceneviewcomposesample.ModelViewerWithMenuActivity">
 
     <ImageView
         android:id="@+id/imageView"

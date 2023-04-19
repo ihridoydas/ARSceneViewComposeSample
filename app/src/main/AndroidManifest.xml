@@ -23,7 +23,7 @@
         android:theme="@style/Theme.ARSceneViewComposeSample"
         tools:targetApi="31" >
         <activity
-            android:name=".ModelViewerActivity"
+            android:name=".ModelViewerWithMenuActivity"
             android:exported="true"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="locked">
