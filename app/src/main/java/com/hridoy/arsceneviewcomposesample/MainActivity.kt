@@ -25,14 +25,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.core.view.isGone
+import com.google.android.filament.textured.loadTexture
 import com.google.ar.core.Config
 import com.google.ar.core.TrackingFailureReason
 import com.hridoy.arsceneviewcomposesample.ui.theme.ARSceneViewComposeSampleTheme
 import io.github.sceneview.ar.ARScene
+import io.github.sceneview.ar.getDescription
 import io.github.sceneview.ar.node.ArModelNode
 import io.github.sceneview.ar.node.ArNode
 import io.github.sceneview.ar.node.PlacementMode
 import io.github.sceneview.math.Position
+import io.github.sceneview.texture.TextureLoader
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -63,7 +67,7 @@ fun ARScreen() {
     var arModelNode : ArModelNode? = null
 
     var status by remember { mutableStateOf("") }
-    Box(modifier = Modifier.fillMaxSize()) {
+//    Box(modifier = Modifier.fillMaxSize()) {
 
         ARScene(
             modifier = Modifier,
@@ -71,38 +75,12 @@ fun ARScreen() {
             planeRenderer = true,
             onCreate = { arSceneView ->
                 // Apply your configuration
-                arSceneView.configureSession { arSession, config ->
-                    config.focusMode = Config.FocusMode.FIXED
-                    config.instantPlacementMode = Config.InstantPlacementMode.DISABLED
-                    config.planeFindingMode = Config.PlaneFindingMode.HORIZONTAL_AND_VERTICAL
-                    config.lightEstimationMode = Config.LightEstimationMode.ENVIRONMENTAL_HDR
-//                    config.augmentedImageDatabase = resources.openRawResource(R.raw.av_db).use { database ->
-//                        AugmentedImageDatabase.deserialize(arSession, database)
-//                    }
-                }
-
-                //Tracking ちゃんとできない場合
-                fun TrackingFailureReason.getDescription(context: Context) = when (this) {
-                    TrackingFailureReason.NONE -> ""
-                    TrackingFailureReason.BAD_STATE -> context.getString(R.string.sceneview_bad_state_message)
-                    TrackingFailureReason.INSUFFICIENT_LIGHT -> context.getString(
-                        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
-                            R.string.sceneview_insufficient_light_message
-                        } else {
-                            R.string.sceneview_insufficient_light_android_s_message
-                        }
-                    )
-
-                    TrackingFailureReason.EXCESSIVE_MOTION -> context.getString(R.string.sceneview_excessive_motion_message)
-                    TrackingFailureReason.INSUFFICIENT_FEATURES -> context.getString(R.string.sceneview_insufficient_features_message)
-                    TrackingFailureReason.CAMERA_UNAVAILABLE -> context.getString(R.string.sceneview_camera_unavailable_message)
-                    else -> context.getString(R.string.sceneview_unknown_tracking_failure, this)
-                }
-
+                arSceneView.setupAvConfigurations()
 
                 arSceneView?.apply {
                     onArTrackingFailureChanged = { reason ->
                         status = reason?.getDescription(context).toString()
+                            // status.isGone = reason == null
 
                     }
 
@@ -115,11 +93,10 @@ fun ARScreen() {
                         glbFileLocation = "https://storage.googleapis.com/ar-answers-in-search-models/static/Tiger/model.glb",
                         autoAnimate = true,
                         scaleToUnits = 2.5f,
-                        // Place the model origin at the bottom center
-                        centerOrigin = Position(y = -1.0f)
+                        // Center the model horizontally and vertically
+                        centerOrigin = Position(x = 0.0f, y = 0.0f, z = 0.0f)
                     ) {
                         arSceneView.planeRenderer.isVisible = true
-
                     }
                     onAnchorChanged = { anchor ->
 
@@ -138,14 +115,13 @@ fun ARScreen() {
             },
             onFrame = { arFrame ->
                 // Retrieve ARCore frame update
-                PlacementMode.PLANE_HORIZONTAL_AND_VERTICAL
             },
             onTap = { hitResult ->
                 // User tapped in the AR view
             }
         )
 
-    }
+//    }
 
     Column(
         modifier = Modifier.padding(5.dp),
