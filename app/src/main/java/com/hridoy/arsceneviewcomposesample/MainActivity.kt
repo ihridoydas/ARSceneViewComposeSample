@@ -60,9 +60,6 @@ fun ARScreen() {
 //    val nodes = _node.asStateFlow()
 //    val node by  nodes.collectAsState()
 
-//    val status = remember {
-//        mutableStateOf(String())
-//    }
     var arModelNode : ArModelNode? = null
 
     var status by remember { mutableStateOf("") }
@@ -75,8 +72,8 @@ fun ARScreen() {
             onCreate = { arSceneView ->
                 // Apply your configuration
                 arSceneView.configureSession { arSession, config ->
-                    config.focusMode = Config.FocusMode.AUTO
-                    config.instantPlacementMode = Config.InstantPlacementMode.LOCAL_Y_UP
+                    config.focusMode = Config.FocusMode.FIXED
+                    config.instantPlacementMode = Config.InstantPlacementMode.DISABLED
                     config.planeFindingMode = Config.PlaneFindingMode.HORIZONTAL_AND_VERTICAL
                     config.lightEstimationMode = Config.LightEstimationMode.ENVIRONMENTAL_HDR
 //                    config.augmentedImageDatabase = resources.openRawResource(R.raw.av_db).use { database ->
@@ -141,6 +138,7 @@ fun ARScreen() {
             },
             onFrame = { arFrame ->
                 // Retrieve ARCore frame update
+                PlacementMode.PLANE_HORIZONTAL_AND_VERTICAL
             },
             onTap = { hitResult ->
                 // User tapped in the AR view
