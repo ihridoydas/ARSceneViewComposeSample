@@ -67,6 +67,8 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.31.0-alpha"
+
 
     //Ar Core
     implementation 'com.google.ar:core:1.36.0'
