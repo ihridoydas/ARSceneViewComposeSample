@@ -43,6 +43,7 @@ fun ArSceneView.setupAvConfigurations() {
     }
 }
 
+//https://engawapg.net/jetpack-compose/2065/fullscreen/
 fun enableFullScreen(context: Context) {
     val window = context.findActivity().window
     WindowCompat.setDecorFitsSystemWindows(window, false)

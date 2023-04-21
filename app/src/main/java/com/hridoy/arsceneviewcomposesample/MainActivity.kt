@@ -35,8 +35,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.android.filament.IndirectLight
 import com.google.android.filament.utils.HDRLoader
 import com.google.ar.core.Anchor
+import com.google.ar.core.Config
 import com.hridoy.arsceneviewcomposesample.ui.theme.ARSceneViewComposeSampleTheme
 import io.github.sceneview.ar.ARScene
 import io.github.sceneview.ar.ArSceneView
@@ -45,6 +47,7 @@ import io.github.sceneview.ar.getDescription
 import io.github.sceneview.ar.node.ArModelNode
 import io.github.sceneview.ar.node.ArNode
 import io.github.sceneview.ar.node.CursorNode
+import io.github.sceneview.environment.Environment
 import io.github.sceneview.environment.loadEnvironment
 import io.github.sceneview.math.Position
 import kotlinx.coroutines.launch
@@ -57,6 +60,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         //Set Orientation Landscape
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
 
         if (Build.VERSION.SDK_INT >= 28) {
             window.attributes.layoutInDisplayCutoutMode =
@@ -91,6 +95,7 @@ fun ARScreen() {
     lateinit var arModelNode: ArModelNode
     lateinit var cursorNode: CursorNode
 
+
     val context= LocalContext.current
     var sceneView  = remember {
         ArSceneView(context)
@@ -111,7 +116,7 @@ fun ARScreen() {
 
                 sceneView = arSceneView
                 arSceneView.setupAvConfigurations()
-
+                arSceneView.isDepthOcclusionEnabled = true
 
                 //Light Estimate
                 scope.launch {
@@ -136,7 +141,6 @@ fun ARScreen() {
                         onTapAr = { hitResult, _ ->
                             anchorOrMove(hitResult.createAnchor(), arModelNode = arModelNode, arSceneView = arSceneView)
                         }
-
 
                     }
                 }
@@ -181,10 +185,14 @@ fun ARScreen() {
             },
             onSessionCreate = { session ->
                 // Configure the ARCore session
+                session.configure {
+                    it.depthMode = Config.DepthMode.RAW_DEPTH_ONLY
+                }
 
             },
             onFrame = { arFrame ->
                 // Retrieve ARCore frame update
+                //this.depthEnabled = true
             },
             onTap = { hitResult ->
                 // User tapped in the AR view
