@@ -12,7 +12,7 @@ fun ArSceneView.setupAvConfigurations() {
         config.focusMode = Config.FocusMode.FIXED
         config.instantPlacementMode = Config.InstantPlacementMode.DISABLED
         config.planeFindingMode = Config.PlaneFindingMode.HORIZONTAL_AND_VERTICAL
-        config.lightEstimationMode = Config.LightEstimationMode.ENVIRONMENTAL_HDR
+       // config.lightEstimationMode = Config.LightEstimationMode.ENVIRONMENTAL_HDR
 //        config.augmentedImageDatabase = resources.openRawResource(R.raw.av_db).use { database ->
 //            AugmentedImageDatabase.deserialize(arSession, database)
 //        }

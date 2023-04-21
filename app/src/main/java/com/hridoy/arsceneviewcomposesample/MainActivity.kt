@@ -3,11 +3,8 @@ package com.hridoy.arsceneviewcomposesample
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
-import android.content.pm.ActivityInfo
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.HorizontalScrollView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -32,17 +29,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.core.view.isGone
-import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.filament.utils.HDRLoader
 import com.google.ar.core.Anchor
-import com.google.ar.core.Config
-import com.google.ar.sceneform.rendering.ModelRenderable
-import com.google.ar.sceneform.rendering.Renderable
 import com.hridoy.arsceneviewcomposesample.ui.theme.ARSceneViewComposeSampleTheme
 import io.github.sceneview.ar.ARScene
 import io.github.sceneview.ar.ArSceneView
@@ -51,7 +42,6 @@ import io.github.sceneview.ar.getDescription
 import io.github.sceneview.ar.node.ArModelNode
 import io.github.sceneview.ar.node.ArNode
 import io.github.sceneview.ar.node.CursorNode
-import io.github.sceneview.ar.node.PlacementMode
 import io.github.sceneview.environment.loadEnvironment
 import io.github.sceneview.math.Position
 import kotlinx.coroutines.launch
@@ -71,7 +61,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ARSceneViewComposeSampleTheme {
                 val systemUiController: SystemUiController = rememberSystemUiController()
-                systemUiController.isStatusBarVisible = false // Status bar
+                systemUiController.isStatusBarVisible = true // Status bar
                 systemUiController.isNavigationBarVisible = true // Navigation bar
                 systemUiController.isSystemBarsVisible = false // Status & Navigation bars
                 //AR Scene View
@@ -92,7 +82,9 @@ fun ARScreen() {
     lateinit var cursorNode: CursorNode
 
     val context= LocalContext.current
-    var model: Renderable? = null
+    var sceneView  = remember {
+        ArSceneView(context)
+    }
 
     val scope = rememberCoroutineScope()
 
@@ -106,7 +98,10 @@ fun ARScreen() {
             planeRenderer = true,
             onCreate = { arSceneView ->
                 // Apply your configuration
+
+                sceneView = arSceneView
                 arSceneView.setupAvConfigurations()
+
 
                 //Light Estimate
                 scope.launch {
@@ -201,33 +196,34 @@ fun ARScreen() {
             .padding(bottom = 40.dp),
             horizontalArrangement = Arrangement.SpaceEvenly) {
             Button(onClick = {
-                Config.LightEstimationMode.ENVIRONMENTAL_HDR
+                lightEstimate(sceneView, mode = LightEstimationMode.ENVIRONMENTAL_HDR)
             }, modifier = Modifier) {
                 Text(text = "ENVIRONMENTAL_HDR")
             }
             Button(onClick = {
-                Config.LightEstimationMode.DISABLED
+                lightEstimate(sceneView, mode = LightEstimationMode.ENVIRONMENTAL_HDR_FAKE_REFLECTIONS)
             }, modifier = Modifier) {
                 Text(text = "ENVIRONMENTAL_HDR_FAKE_REFLECTIONS")
             }
             Button(onClick = {
 
-                Config.LightEstimationMode.AMBIENT_INTENSITY
+                lightEstimate(sceneView, mode = LightEstimationMode.ENVIRONMENTAL_HDR_NO_REFLECTIONS)
             }, modifier = Modifier) {
                 Text(text = "ENVIRONMENTAL_HDR_NO_REFLECTIONS")
             }
 
             Button(onClick = {
-
+                lightEstimate(sceneView, mode = LightEstimationMode.AMBIENT_INTENSITY)
             }, modifier = Modifier) {
                 Text(text = "AMBIENT_INTENSITY")
             }
             Button(onClick = {
-
+                lightEstimate(sceneView, mode = LightEstimationMode.DISABLED)
             }, modifier = Modifier) {
                 Text(text = "DISABLED")
             }
             Button(onClick = {
+
                     //cursorNode.createAnchor()?.let { anchorOrMove(anchor = it, arModelNode = arModelNode, arSceneView = arSceneView) }
             }, modifier = Modifier) {
                 Text(text = "Set Anchor")
@@ -243,6 +239,10 @@ fun anchorOrMove(anchor: Anchor,arModelNode: ArModelNode,arSceneView: ArSceneVie
         arSceneView.addChild(arModelNode)
     }
     arModelNode.anchor = anchor
+}
+
+fun lightEstimate(arSceneView: ArSceneView,mode:LightEstimationMode){
+    arSceneView.lightEstimationMode = mode
 }
 
 fun checkIsSupportedDeviceOrFinish(activity: Activity): Boolean {
