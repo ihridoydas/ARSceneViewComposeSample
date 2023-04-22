@@ -61,8 +61,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 //            }
 
             //From Url
-            val url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" // your URL here
-            //If Get From app resourse like (matrix.mp4)
+            val url = "https://github.com/ihridoydas/ARSceneViewComposeSample/blob/feature/compose_AR_ImageWithDatabase/app/src/main/res/raw/sakura.mp4?raw=true" // your URL here
             mediaPlayer = MediaPlayer.create(getApplication(), Uri.parse(url)).apply {
                 setSurface(externalTexture.surface)
                 isLooping = true
