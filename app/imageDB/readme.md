@@ -1,6 +1,17 @@
 
 ImageDb create for AR Image
 
+-> Find The arcoreimg DB tool from Google [AR]Image
+```
+https://github.com/google-ar/arcore-android-sdk/tree/master/tools/arcoreimg
+
+```
+
+-> Go to arcoreimg File Directory 
+```
+cd YOUR DIRECTORY[where you save arcoreimg file]
+```
+
 ```
 sudo chmod +x "arcoreimg"
 
