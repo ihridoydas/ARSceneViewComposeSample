@@ -35,7 +35,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@SuppressLint("RememberReturnType")
 @Composable
 fun AvApp(
     mainViewModel: MainViewModel = viewModel(),
