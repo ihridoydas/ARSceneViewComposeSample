@@ -44,14 +44,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 loadModelGlbAsync(
                     glbFileLocation = "https://sceneview.github.io/assets/models/Hair.glb",
                     // Place the model origin at the bottom center
-                    centerOrigin = Position(y = -1.0f)
+                    centerOrigin = Position(y = 0.0f)
                 )
             }
         )
 
         sceneView.addChild(AugmentedImageNode(
             imageName = "video",
-            bitmap = requireContext().assets.open("augmentedimages/video.jpg")
+            bitmap = requireContext().assets.open("augmentedimages/cute.jpeg")
                 .use(BitmapFactory::decodeStream),
             onUpdate = { node, _ ->
                 if (node.isTracking) {
@@ -68,7 +68,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             videoNode = VideoNode(MediaPlayer().apply {
                 setDataSource(
                     requireContext(),
-                    Uri.parse("https://sceneview.github.io/assets/videos/ads/ar_camera_app_ad.mp4")
+                    Uri.parse("https://github.com/ihridoydas/ARSceneViewComposeSample/blob/feature/compose_AR_ImageWithDatabase/app/src/main/res/raw/sakura.mp4?raw=true")
                 )
                 isLooping = true
                 setOnPreparedListener {
