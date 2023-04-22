@@ -22,6 +22,9 @@ sudo chmod +x "arcoreimg"
 
 ```
 
+-> Congrates[You got two file 1.imagedb file and other 2. in DB image name and loction]
+
+In case you get ERROR
 if in (mac Os get error) need to get permission [Privecy and Sceurity] to permession
 
 -> Click Apple icon in top
