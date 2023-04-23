@@ -25,8 +25,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         sceneView.addChild(
             AugmentedImageNode(
-                imageName = "rabbit",
-                bitmap = requireContext().assets.open("augmentedimages/rabbit.png")
+                imageName = "qpng",
+                bitmap = requireContext().assets.open("augmentedimages/qpng.png")
                     .use(BitmapFactory::decodeStream)
             ).apply {
                 loadModelGlbAsync(
@@ -50,8 +50,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         )
 
         sceneView.addChild(AugmentedImageNode(
-            imageName = "video",
-            bitmap = requireContext().assets.open("augmentedimages/cute.jpeg")
+            imageName = "love",
+            bitmap = requireContext().assets.open("augmentedimages/love.png")
                 .use(BitmapFactory::decodeStream),
             onUpdate = { node, _ ->
                 if (node.isTracking) {
