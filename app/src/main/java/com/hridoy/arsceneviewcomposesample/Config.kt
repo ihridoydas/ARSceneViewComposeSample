@@ -12,10 +12,9 @@ import io.github.sceneview.ar.ArSceneView
 
 fun ArSceneView.setupARConfigurations() {
     configureSession { arSession, config ->
-        config.focusMode = Config.FocusMode.FIXED
-        config.instantPlacementMode = Config.InstantPlacementMode.DISABLED
+        config.focusMode = Config.FocusMode.AUTO
+        config.instantPlacementMode = Config.InstantPlacementMode.LOCAL_Y_UP
         config.planeFindingMode = Config.PlaneFindingMode.HORIZONTAL_AND_VERTICAL
-        config.lightEstimationMode = Config.LightEstimationMode.DISABLED
     }
 }
 
@@ -30,7 +29,6 @@ fun setupTrackingFailureChanged(trackingFailureReason: TrackingFailureReason) {
             TrackingFailureReason.CAMERA_UNAVAILABLE -> CAMERA_UNAVAILABLE
         }
     }
-
 }
 
 //https://engawapg.net/jetpack-compose/2065/fullscreen/

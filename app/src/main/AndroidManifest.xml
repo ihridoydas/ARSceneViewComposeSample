@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.SENSOR" />
     <!--
  Limits app visibility in the Google Play Store to ARCore supported devices
          (https://developers.google.com/ar/devices).
